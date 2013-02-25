@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* FONT STACK */
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background-color: #fff;
+}
+
+/* BASE LAYOUT */
+
+html {
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+h1, .unauthorised-message, .message-footer {
+    width: 400px;
+    padding: 20px;
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    margin: 40px auto;
+    color: #0ca5e0;
+    font-weight: normal;
+    font-size: 2.25em;
+}
+
+.unauthorised-message {
+    border: solid 1px #FFAAAA;
+    background-color: #FFF3F3;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.message-footer {
+    border: solid 1px #cccccc;
+    background-color: #eeeeee;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 60%;
+}

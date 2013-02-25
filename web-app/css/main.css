@@ -1,0 +1,96 @@
+/* customisations */
+body{
+    background:  url(../images/pattern.png) fixed;
+
+}
+table{
+    background-color: #f4cb97;
+}
+table tr{
+    height: 30px;
+}
+
+.list-button {
+    margin-bottom: 10px;
+}
+
+.form-horizontal a.btn {
+    position: relative;
+    top: 2px;
+}
+
+.error-list {
+    list-style: none;
+    margin-left: 10px;
+}
+
+a.skip {
+    position: absolute;
+    left: -9999px;
+}
+
+.row-fluid h1 {
+    margin-top: 20px;
+}
+
+.true {
+    background-color: #5bb75b
+}
+
+.false {
+    background-color: #b94a48;
+}
+
+#ajax-container {
+    height: 20px;
+}
+.container-fluid{
+   background-color: #5BB75B;
+}
+
+#course a{
+    background-color: #fa832b;
+}
+
+#placement a{
+    background-color: #336cc4;
+}
+
+#institution a{
+    background-color: #b3b906;
+}
+#consultant a{
+    background-color: #e62732;
+}
+
+#admin{
+    background-color: #bf25ec;
+}
+.navbar navbar-fixed-top{
+    background-color: red;
+}
+
+.container, .navbar-fixed-top .container {
+    width: 960px;
+}
+
+
+
+.content-body-outer {
+    border: 10px solid rgba(255, 255, 255, .6);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: 2px 2px 2px 0px #ccc;
+    -webkit-box-shadow: 2px 2px 2px 0px #ccc;
+    box-shadow: 2px 2px 2px 0px #ccc;
+    margin-top: 55px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #cfd0b8;
+
+
+}
+
