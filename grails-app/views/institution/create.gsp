@@ -1,38 +1,79 @@
-<%@ page import="com.rigelsolutions.domain.Institution" %>
-<!doctype html>
-<html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'institution.label', default: 'Institution')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
-	</head>
-	<body>
-	<div class="row-fluid">
-		<div class="span12">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:link action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
-			<hr />
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${institutionInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${institutionInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form class="form-horizontal" action="save" >
-				<fieldset>
-					<g:render template="form"/>
-				</fieldset>
-				<div class="form-actions">
-					<fieldset>
-						<g:submitButton name="create" class="btn btn-success" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-					</fieldset>
-				</dvi>
-			</g:form>
-		</div>
-	</div>
-	</body>
-</html>
+'use client'
+
+import React, { useState } from 'react'
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Toggle } from "@/components/ui/toggle"
+import { Download, FileJson, FileSpreadsheet } from 'lucide-react'
+
+type CardData = {
+  id: number
+  name: string
+  description: string
+}
+
+const cardData: CardData[] = [
+  { id: 1, name: "Project Alpha", description: "A groundbreaking initiative for sustainable energy" },
+  { id: 2, name: "Operation Beta", description: "Revolutionizing supply chain management" },
+  { id: 3, name: "Venture Gamma", description: "Exploring new frontiers in artificial intelligence" },
+]
+
+const borderColors = [
+  'border-pink-500',
+  'border-purple-500',
+  'border-indigo-500',
+]
+
+export default function ColorfulCards() {
+  const [selectedFormat, setSelectedFormat] = useState<'csv' | 'json'>('csv')
+
+  const handleDownload = (id: number, format: 'csv' | 'json') => {
+    // Implement download logic here
+    console.log(`Downloading ${format} for card ${id}`)
+  }
+
+  return (
+    <div className="space-y-6 p-6 max-w-2xl mx-auto">
+      {cardData.map((card, index) => (
+        <Card key={card.id} className={`overflow-hidden ${borderColors[index]} border-4`}>
+          <CardContent className="p-0">
+            <div className="flex">
+              <div className="w-2/3 p-6">
+                <h3 className="text-xl font-bold mb-2">{card.name}</h3>
+                <p className="text-gray-600">{card.description}</p>
+              </div>
+              <div className="w-1/3 bg-gray-100 p-4 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <Button 
+                    onClick={() => handleDownload(card.id, selectedFormat)}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <Download className="mr-2 h-4 w-4" /> Download
+                  </Button>
+                  <div className="flex justify-center space-x-2">
+                    <Toggle
+                      pressed={selectedFormat === 'csv'}
+                      onPressedChange={() => setSelectedFormat('csv')}
+                      aria-label="Toggle CSV"
+                    >
+                      <FileSpreadsheet className="h-4 w-4" />
+                    </Toggle>
+                    <Toggle
+                      pressed={selectedFormat === 'json'}
+                      onPressedChange={() => setSelectedFormat('json')}
+                      aria-label="Toggle JSON"
+                    >
+                      <FileJson className="h-4 w-4" />
+                    </Toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}
+
