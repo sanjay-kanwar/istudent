@@ -1,39 +1,74 @@
-<%@ page import="com.rigelsolutions.domain.Institution" %>
-<!doctype html>
-<html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'institution.label', default: 'Institution')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<div id="edit-institution" class="content scaffold-edit" role="main">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-			<g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
-			<hr />
-			<g:if test="${flash.message}">
-			<div class="alert alert-info" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${institutionInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${institutionInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form class="form-horizontal" method="post" >
-				<g:hiddenField name="id" value="${institutionInstance?.id}" />
-				<g:hiddenField name="version" value="${institutionInstance?.version}" />
-				<fieldset>
-					<g:render template="form"/>
-				</fieldset>
-				<div class="form-actions">
-				<fieldset>
-					<g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-				</div>
-			</g:form>
-		</div>
-	</body>
-</html>
+'use client'
+
+import React, { useState } from 'react'
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Toggle } from "@/components/ui/toggle"
+import { Download, FileJson, FileSpreadsheet } from 'lucide-react'
+
+type CardData = {
+  id: number
+  name: string
+  description: string
+}
+
+const cardData: CardData[] = [
+  { id: 1, name: "Project Alpha", description: "A groundbreaking initiative for sustainable energy" },
+  { id: 2, name: "Operation Beta", description: "Revolutionizing supply chain management" },
+  { id: 3, name: "Venture Gamma", description: "Exploring new frontiers in artificial intelligence" },
+]
+
+export default function YellowBorderCard() {
+  const [selectedFormat, setSelectedFormat] = useState<'csv' | 'json'>('csv')
+
+  const handleDownload = (id: number, format: 'csv' | 'json') => {
+    // Implement download logic here
+    console.log(`Downloading ${format} for card ${id}`)
+  }
+
+  return (
+    <div className="space-y-6 p-6 max-w-2xl mx-auto">
+      {cardData.map((card) => (
+        <Card key={card.id} className="overflow-hidden border-gray-400 border-4 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <CardContent className="p-0">
+            <div className="flex flex-col sm:flex-row">
+              <div className="w-full sm:w-2/3 p-6">
+                <h3 className="text-xl font-bold mb-2 text-gray-800">{card.name}</h3>
+                <p className="text-gray-600">{card.description}</p>
+              </div>
+              <div className="w-full sm:w-1/3 p-4 flex flex-col justify-between border-t sm:border-t-0 sm:border-l border-yellow-200">
+                <div className="space-y-2">
+                  <Button 
+                    onClick={() => handleDownload(card.id, selectedFormat)}
+                    className="w-full bg-border border-yellow-400 hover:bg-yellow-500 text-yellow-900"
+                  >
+                    <Download className="mr-2 h-4 w-4" /> Download
+                  </Button>
+                  <div className="flex justify-center space-x-2">
+                    <Toggle
+                      pressed={selectedFormat === 'csv'}
+                      onPressedChange={() => setSelectedFormat('csv')}
+                      aria-label="Toggle CSV"
+                      className="data-[state=on]:bg-yellow-400 data-[state=on]:text-yellow-900"
+                    >
+                      <FileSpreadsheet className="h-4 w-4" />
+                    </Toggle>
+                    <Toggle
+                      pressed={selectedFormat === 'json'}
+                      onPressedChange={() => setSelectedFormat('json')}
+                      aria-label="Toggle JSON"
+                      className="data-[state=on]:bg-yellow-400 data-[state=on]:text-yellow-900"
+                    >
+                      <FileJson className="h-4 w-4" />
+                    </Toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}
+
